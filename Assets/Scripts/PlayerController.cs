@@ -27,7 +27,7 @@ public  class PlayerController : Singleton<PlayerController>
         {
             case Utility.MicroGameType.Tap:
                 {
-                    nukeInputActions.Player.Tap.performed += KeyTap;
+                    nukeInputActions.Player.Tap.started += KeyTap;
                     nukeInputActions.Player.Tap.Enable();
                     nukeInputActions.Player.TapHold.Disable();
                     nukeInputActions.Player.Mash.Disable();

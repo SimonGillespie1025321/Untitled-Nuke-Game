@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 
-public abstract class MicroGameBase : MonoBehaviour
+public abstract class MicroGame : MonoBehaviour
 {
     private Coroutine MicroGameCoroutine;
     private WaitForSeconds defaultYieldWait = null;

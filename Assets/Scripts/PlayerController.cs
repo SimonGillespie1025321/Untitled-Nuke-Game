@@ -5,14 +5,10 @@ using UnityEngine.InputSystem;
 public  class PlayerController : Singleton<PlayerController>
 {
     public NukeInputActions nukeInputActions;
-   /* private InputAction tapKey;
-    private InputAction holdKey;
-    private InputAction mashKey;*/
 
     public delegate void NukeKeyPressed();
     public static event NukeKeyPressed nukeKeyPressed;
 
-    // Start is called before the first frame update
     public void Initialise()
     {
         
@@ -90,6 +86,5 @@ public  class PlayerController : Singleton<PlayerController>
 
         nukeInputActions.Player.Mash.performed -= KeyMash;
     }
-
 
 }

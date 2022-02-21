@@ -1671,12 +1671,12 @@ MonoBehaviour:
   gameWinState: 0
   isPlaying: 0
   audioAssets: []
-  thrustyJump: 0.5
-  thrustxJump: -3
-  thrustyShoot: 0.3
-  thrustxShoot: -4
-  chuteDrag: 1
-  mass: 85
+  thrustyJump: 1
+  thrustxJump: -5
+  thrustyShoot: 8
+  thrustxShoot: 7
+  chuteDrag: 0.5
+  mass: 0.8
   parachute: {fileID: 1374517825}
 --- !u!54 &888354041
 Rigidbody:

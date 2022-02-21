@@ -60,7 +60,7 @@ public class ParachuteJump : MicroGame
         {
             Jump();
         }
-        if (!PullShoot)
+        else if (!PullShoot)
         { 
             Chute();
         }

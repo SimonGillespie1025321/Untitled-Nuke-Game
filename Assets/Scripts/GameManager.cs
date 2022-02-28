@@ -22,20 +22,21 @@ public class GameManager : Singleton<GameManager>
 
         PlayerController.Instance.Initialise();
 
-        LoadMicrogame();
+        //LoadMicrogame("ParachuteJump");
 
     }
 
 
-    public void LoadMicrogame()
+    public void LoadMicrogame(string microGame)
     {
-        //GameObject.Find("ScreenOff").SetActive(false);
-        AsyncOperation op = SceneManager.LoadSceneAsync("ParachuteJump", LoadSceneMode.Additive);
-        op.completed += (AsyncOperation result) =>
-        {
-            Debug.Log("MicroGame scene loaded!");
-            
-        };
+            GameObject.Find("ScreenOff")?.SetActive(false);
+
+            AsyncOperation op = SceneManager.LoadSceneAsync(microGame, LoadSceneMode.Additive);
+            op.completed += (AsyncOperation result) =>
+            {
+                Debug.Log("MicroGame scene: ");
+
+            };
     }
 
 }

@@ -4,21 +4,24 @@ using UnityEngine;
 
 
 
-public class ParachuteJump : MicroGameBase
+public class ParachuteJump : MicroGame
 {
-    private bool jump = false;
-    private bool pull = false;
-    private bool landed = false;
-    private bool inAir = false;
-    
-    private float groundLevel = -19f;
-    private float pullAltitude = 5;
-    
-    private GameObject parachute;
+ 
+
+
+    public  float thrustyJump = 1.0f;
+    public float thrustxJump = 1.0f;
+    public float thrustyShoot = 1.0f;
+    public float thrustxShoot = 1.0f;
+    public float chuteDrag = 1.0f;
+    public float mass = 85f;
+    private Rigidbody rb;
+    [SerializeField] private GameObject parachute;
     private GameObject skydiver;
-    
-    private Rigidbody skydiverRB;
-    private Rigidbody parachuteRB;
+    private bool HasJumped = false;
+    private bool PullShoot = false;
+
+
 
     private void OnEnable()
     {
@@ -31,13 +34,8 @@ public class ParachuteJump : MicroGameBase
     public void Start()
     {
         Initialise();
+        
 
-        parachute = GameObject.Find("Parachute");
-
-        skydiver = GameObject.Find("Skydiver Vertical");
-
-        if (!skydiver.TryGetComponent<Rigidbody>(out skydiverRB))
-            return;
     }
 
     public override void Initialise()
@@ -57,57 +55,48 @@ public class ParachuteJump : MicroGameBase
 
     public void TapPressed()
     {
-        Debug.Log("TAP HAS BEEN PRESSED");
 
-        if (!jump)
+        if (!HasJumped)
         {
-            jump = true;
+            Jump();
         }
-        else if (inAir)
+        else if (!PullShoot)
         { 
-            pull = true; 
+            Chute();
         }
 
     }
-     
-    public void FixedUpdate()
+    
+
+
+    private void Jump()
     {
-        if (!landed)
+        // skydiver
+
+        if (TryGetComponent<Rigidbody>(out rb)) ;
         {
-            if (jump & !inAir)
-            {
-
-                Debug.Log("jump");
-                inAir = true;
-                skydiverRB.useGravity = true;
-                skydiverRB.AddForce(-11f, 3f, 0, ForceMode.Impulse);
-
-            }
-            else if (!pull && inAir)
-            {
-                Debug.Log("pull");
-                skydiverRB.AddForce(9f, 1f, 0, ForceMode.Impulse);
-
-            }
-            else if (inAir && pull)
-            {
-                Debug.Log("float");
-                Vector3 skydiverPos = skydiver.transform.position;
-                skydiverPos.y = skydiverPos.y + 5;
-                parachute.transform.position = skydiverPos;
-                if (skydiver.transform.position.y <= groundLevel)
-                {
-                    landed = true;
-                    skydiverRB.velocity = Vector3.zero;
-                }
-            }
-            if (landed)
-            {
-                parachute.SetActive(false);
-            }
+            rb.mass = mass;
+            rb.useGravity = true;
+            rb.AddForce(thrustxJump, thrustyJump, 0, ForceMode.Impulse);
+            HasJumped = true;
+            transform.parent = null;
+            Debug.Log("Skydiver Jumped");
         }
-
     }
-
-
+    private void Chute()
+    {
+        //parachute
+        if (TryGetComponent<Rigidbody>(out rb));
+        {
+            parachute.SetActive(true);
+            rb.AddForce(thrustxShoot, thrustyShoot, 0, ForceMode.Impulse);
+            rb.drag = chuteDrag;
+            rb.mass = mass / 3;
+            Debug.Log("Skydiver Pulled Shoot");
+            PullShoot = true;
+        }
+    }
 }
+
+
+

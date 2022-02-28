@@ -91,7 +91,7 @@ public class ParachuteJump : MicroGame
             parachute.SetActive(true);
             rb.AddForce(thrustxShoot, thrustyShoot, 0, ForceMode.Impulse);
             rb.drag = chuteDrag;
-            rb.mass = mass / 2;
+            rb.mass = mass / 3;
             Debug.Log("Skydiver Pulled Shoot");
             PullShoot = true;
         }

@@ -490,7 +490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7750397243111347764, guid: 1f421c6f6a6033b4b97d46e622464e30, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7750397243111347764, guid: 1f421c6f6a6033b4b97d46e622464e30, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -746,6 +746,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1102052181}
   - component: {fileID: 1102052180}
+  - component: {fileID: 1102052182}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -765,9 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a055de109dc5bd44bb0ac77303fcf18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadedMicroGameType: 0
-  loadedSceneIndex: 0
-  loadedGameType: 0
+  offScreenDisplay: {fileID: 703755186}
 --- !u!4 &1102052181
 Transform:
   m_ObjectHideFlags: 0
@@ -782,6 +781,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1102052182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102052179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106c7f0dfa660ab438ced36c55c1a80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  microGameDefinition:
+  - {fileID: 11400000, guid: d84f884ed6dfe7044a1edbca08d9b705, type: 2}
 --- !u!1 &2026233399
 GameObject:
   m_ObjectHideFlags: 0

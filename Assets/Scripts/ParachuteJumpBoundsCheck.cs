@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MicroGameBoundsCheck : MonoBehaviour
+public abstract class ParachuteJumpBoundsCheck : MonoBehaviour
 {
     
     public virtual void OnTriggerEnter(Collider other)

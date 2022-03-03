@@ -6,85 +6,38 @@ public  class PlayerController : Singleton<PlayerController>
 {
     public NukeInputActions nukeInputActions;
 
-    public delegate void NukeKeyPressed();
-    public static event NukeKeyPressed nukeKeyPressed;
-
-    public void Initialise()
-    {
-        
-
-    }
-
-    // Update is called once per frame
+    
     private void OnEnable()
     {
         nukeInputActions = new NukeInputActions();
     }
 
-    public void SetKeyFunction(Utility.MicroGameType gameType)
+    public void Initialise()
     {
-        switch (gameType)
-        {
-            case Utility.MicroGameType.Tap:
-                {
-                    nukeInputActions.Player.Tap.started += KeyTap;
-                    nukeInputActions.Player.Tap.Enable();
-                    nukeInputActions.Player.TapHold.Disable();
-                    nukeInputActions.Player.Mash.Disable();
-                    break; }
-            case Utility.MicroGameType.Hold:
-                {
-                    nukeInputActions.Player.TapHold.started += KeyHold;
-                    nukeInputActions.Player.TapHold.canceled += KeyHoldRelease;
-                    nukeInputActions.Player.TapHold.Enable();
-                    break; }
-            case Utility.MicroGameType.Mash:
-                {
-                    nukeInputActions.Player.Mash.performed += KeyMash;
-                    nukeInputActions.Player.Mash.Enable();
-                    
-                    break; }
-            case Utility.MicroGameType.Rhythm:
-                {
-                    break; }
-
-        }
+        nukeInputActions.Player.Tap.started += EventManager.Instance.KeyTap;
+        nukeInputActions.Player.Tap.Enable();
+        nukeInputActions.Player.TapHold.started += EventManager.Instance.KeyHold;
+        nukeInputActions.Player.TapHold.canceled += EventManager.Instance.KeyHoldRelease;
+        nukeInputActions.Player.TapHold.Enable();
+        nukeInputActions.Player.Mash.performed += EventManager.Instance.KeyMash;
+        nukeInputActions.Player.Mash.Enable();
 
     }
 
-    private void KeyTap(InputAction.CallbackContext obj)
+    public void OnDisable()
     {
-        Debug.Log("Tapped");
-        nukeKeyPressed();
+        nukeInputActions.Player.Tap.Disable();
+        nukeInputActions.Player.TapHold.Disable();
+        nukeInputActions.Player.Mash.Disable();
 
     }
-    private void KeyHold(InputAction.CallbackContext obj)
+
+    public void UnsubscribeEventManager()
     {
-        Debug.Log("Held");
-        nukeKeyPressed();
-    }
-
-    private void KeyHoldRelease(InputAction.CallbackContext obj)
-    {
-        Debug.Log("Released");
-        nukeKeyPressed();
-    }
-
-    private void KeyMash(InputAction.CallbackContext obj)
-    {
-        Debug.Log("Mashed");
-        nukeKeyPressed();
-    }
-
-    
-    private void OnDestroy()
-    {
-        nukeInputActions.Player.Tap.performed -= KeyTap;
-
-        nukeInputActions.Player.TapHold.started -= KeyHold;
-        nukeInputActions.Player.TapHold.canceled -= KeyHoldRelease;
-
-        nukeInputActions.Player.Mash.performed -= KeyMash;
+        nukeInputActions.Player.Tap.performed -= EventManager.Instance.KeyTap;
+        nukeInputActions.Player.TapHold.started -= EventManager.Instance.KeyHold;
+        nukeInputActions.Player.TapHold.canceled -= EventManager.Instance.KeyHoldRelease;
+        nukeInputActions.Player.Mash.performed -= EventManager.Instance.KeyMash;
     }
 
 }

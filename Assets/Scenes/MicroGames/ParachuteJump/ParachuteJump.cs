@@ -6,29 +6,26 @@ using UnityEngine;
 
 public class ParachuteJump : MicroGame
 {
- 
 
 
-    public  float thrustyJump = 1.0f;
-    public float thrustxJump = 1.0f;
-    public float thrustyShoot = 1.0f;
-    public float thrustxShoot = 1.0f;
-    public float chuteDrag = 1.0f;
-    public float mass = 85f;
-    private Rigidbody rb;
+
+    [SerializeField] public  float thrustyJump = 1.0f;
+    [SerializeField] public float thrustxJump = 1.0f;
+    [SerializeField] public float thrustyShoot = 1.0f;
+    [SerializeField] public float thrustxShoot = 1.0f;
+    [SerializeField] public float chuteDrag = 1.0f;
+    [SerializeField] public float mass = 85f;
+    [SerializeField] private GameObject skydiver;
     [SerializeField] private GameObject parachute;
-    private GameObject skydiver;
+    private Rigidbody rb;
     private bool HasJumped = false;
-    private bool PullShoot = false;
-
-
+    private bool PullChute = false;
 
     private void OnEnable()
     {
-        //IMPORTANT:  It is critical that sceneName be set to the scene name exactly
+        /*//IMPORTANT:  It is critical that sceneName be set to the scene name exactly
         sceneName = "ParachuteJump";
-        //---------------
-        PlayerController.nukeKeyPressed += TapPressed;
+        //---------------*/
     }
 
     public void Start()
@@ -38,42 +35,42 @@ public class ParachuteJump : MicroGame
 
     }
 
+
     public override void Initialise()
     {
-        base.Initialise();
-        
-        microGameType = Utility.MicroGameType.Tap;
-        GameManager.Instance.loadedGameType = microGameType;
-        PlayerController.Instance.SetKeyFunction(microGameType);
+        base.Initialise();     
     }
 
 
-    public void OnDestroy()
-    {
-        PlayerController.nukeKeyPressed -= TapPressed;
-    }
 
-    public void TapPressed()
-    {
 
-        if (!HasJumped)
+
+    //Game logic goes here
+    public override void Tap()
+    {
+        if (isPlaying)
         {
-            Jump();
-        }
-        else if (!PullShoot)
-        { 
-            Chute();
+            if (!HasJumped)
+            {
+                Jump();
+            }
+            else if (!PullChute)
+            {
+                Chute();
+            }
         }
 
     }
+
     
+
 
 
     private void Jump()
     {
         // skydiver
 
-        if (TryGetComponent<Rigidbody>(out rb)) ;
+        if (skydiver.TryGetComponent<Rigidbody>(out rb)) 
         {
             rb.mass = mass;
             rb.useGravity = true;
@@ -86,15 +83,31 @@ public class ParachuteJump : MicroGame
     private void Chute()
     {
         //parachute
-        if (TryGetComponent<Rigidbody>(out rb));
+        if (parachute != null)
         {
             parachute.SetActive(true);
             rb.AddForce(thrustxShoot, thrustyShoot, 0, ForceMode.Impulse);
             rb.drag = chuteDrag;
             rb.mass = mass / 3;
             Debug.Log("Skydiver Pulled Shoot");
-            PullShoot = true;
+            PullChute = true;
         }
+        else Debug.Log("THERES NO CHUTE!!!");
+    }
+
+
+    public override void WinConditionMet()
+    {   
+
+        //last line must be...
+        Win();
+    }
+
+    public override void FailConditionMet()
+    {
+
+        //last line must be...
+        Fail();
     }
 }
 

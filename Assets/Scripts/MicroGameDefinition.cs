@@ -13,6 +13,6 @@ public class MicroGameDefinition : ScriptableObject
     [SerializeField] public string description;
     [SerializeField] public string instructions;
     [SerializeField] public Utility.MicroGameType gameType;
-    public  int sceneIndex = -1;
+    public int sceneIndex = -1;
   
 }

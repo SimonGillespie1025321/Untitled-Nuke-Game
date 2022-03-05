@@ -23,9 +23,6 @@ public class ParachuteJump : MicroGame
 
     private void OnEnable()
     {
-        /*//IMPORTANT:  It is critical that sceneName be set to the scene name exactly
-        sceneName = "ParachuteJump";
-        //---------------*/
     }
 
     public void Start()

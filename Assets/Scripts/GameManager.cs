@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
     private bool isMicroGameLoaded = false;
 
 
-
+    [SerializeField] public Canvas canvas;
     [SerializeField] public GameObject offScreenDisplay;
 
 
@@ -36,20 +36,39 @@ public class GameManager : Singleton<GameManager>
         //Start Input Manager
         PlayerController.Instance.Initialise();
 
-        offScreenDisplay.SetActive(false);
+        offScreenDisplay.SetActive(true);
 
         EventManager.failMicroGame += FailCurrentMicroGame;
         EventManager.winMicroGame += WinCurrentMicroGame;
 
         GetMicroGameCollection();
 
+        GameMenu();
+
+    }
+
+    private void GameMenu()
+    {
+        EventManager.tap += TapStart;
+        //EventManager.mash += MashQuit;
+
+    }
+
+    private void TapStart()
+    {
+        EventManager.tap -= TapStart;
+        canvas.enabled = false;
         LoadMicrogame();
+        
 
-        //StartCurrentMicroGame();
+    }
 
-
-
-
+    private void MashQuit()
+    {
+        EventManager.tap -= TapStart;
+        EventManager.mash -= MashQuit;
+        KillAllManagers();
+        QuitGame();
     }
 
     private void LoadMicrogame()
@@ -70,7 +89,10 @@ public class GameManager : Singleton<GameManager>
 
     private void UnloadMicroGame()
     {
-        UnloadMicroGameScene(currentMicroGame.sceneName);
+        if (currentMicroGame.sceneName != null)
+         UnloadMicroGameScene(currentMicroGame.sceneName);
+        else
+            Debug.Log("No microgame to unload");
     }
 
     private void GetMicroGameCollection()
@@ -88,8 +110,9 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadMicroGameScene(string microGame)
     {
-            
 
+        if (currentMicroGame.sceneName != null)
+        {
             AsyncOperation op = SceneManager.LoadSceneAsync(microGame, LoadSceneMode.Additive);
             op.completed += (AsyncOperation result) =>
             {
@@ -97,42 +120,33 @@ public class GameManager : Singleton<GameManager>
                 Debug.Log("Loaded micro game at index: " + currentMicroGame.sceneIndex);
                 Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
                 isMicroGameLoaded = true;
+                offScreenDisplay.SetActive(false);
             };
+        }
+        else
+            Debug.Log("No microgame to load");
     }
 
     public void UnloadMicroGameScene(string microGame)
     {
-        //StopCurrentMicroGame();
-        AsyncOperation op = SceneManager.UnloadSceneAsync(microGame);
-        op.completed += (AsyncOperation result) =>
+        if (currentMicroGame.sceneName != null)
         {
-            currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
-            Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
-            Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
-            isMicroGameLoaded = false;
-        };
+            AsyncOperation op = SceneManager.UnloadSceneAsync(microGame);
+            op.completed += (AsyncOperation result) =>
+            {
+                currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
+                Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
+                Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
+                isMicroGameLoaded = false;
+                offScreenDisplay.SetActive(true);
+            };
+        }
+        else
+            Debug.Log("No microgame to unload");
     }
 
 
-   /* public void StartCurrentMicroGame()
-    {
-        Debug.Log("STARTING MICROGAME: " + currentMicroGame.gameName);
-        offScreenDisplay.SetActive(false);
-        EventManager.Instance.StartCurrentMicroGame();
-    }
-*/
-
- /*   public void StopCurrentMicroGame()
-    {
-        offScreenDisplay.SetActive(true);
-        EventManager.Instance.StartCurrentMicroGame();
-    }*/
-/*
-    public void PauseCurrentMicroGame()
-    {
-        offScreenDisplay.SetActive(false);
-    }*/
-
+  
     public void WinCurrentMicroGame()
     {
         UnloadMicroGame();
@@ -147,9 +161,10 @@ public class GameManager : Singleton<GameManager>
 
     public void QuitGame()
     {
+        UnloadMicroGame();
 
         #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
         #elif UNITY_WEBPLAYER
             Application.OpenURL(webplayerQuitURL);
         #else

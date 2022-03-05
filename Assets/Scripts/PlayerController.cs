@@ -14,7 +14,7 @@ public  class PlayerController : Singleton<PlayerController>
 
     public void Initialise()
     {
-        nukeInputActions.Player.Tap.started += EventManager.Instance.KeyTap;
+        nukeInputActions.Player.Tap.performed += EventManager.Instance.KeyTap;
         nukeInputActions.Player.Tap.Enable();
         nukeInputActions.Player.TapHold.started += EventManager.Instance.KeyHold;
         nukeInputActions.Player.TapHold.canceled += EventManager.Instance.KeyHoldRelease;

@@ -146,8 +146,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213237091}
-  m_LocalRotation: {x: 0.09192083, y: 0.24361293, z: -0.023199808, w: 0.965228}
-  m_LocalPosition: {x: -1.37, y: 3.44, z: -7.2}
+  m_LocalRotation: {x: 0.09192083, y: 0.24361293, z: -0.02319981, w: 0.965228}
+  m_LocalPosition: {x: -2.21, y: 3.08, z: -7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 355429478}
   m_LocalRotation: {x: 0.078459114, y: -0, z: -0, w: 0.99691737}
   m_LocalPosition: {x: -0.054, y: 0.2385, z: 0.113}
-  m_LocalScale: {x: 0.25, y: 0.18, z: 1}
+  m_LocalScale: {x: 0.26, y: 0.18, z: 1}
   m_Children: []
   m_Father: {fileID: 2099508894}
   m_RootOrder: 1
@@ -1071,8 +1071,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951827497}
-  m_LocalRotation: {x: 0.12890658, y: 0.19509341, z: -0.02587508, w: 0.9719322}
-  m_LocalPosition: {x: -1.4, y: 3.9, z: -8.77}
+  m_LocalRotation: {x: 0.09192083, y: 0.24361293, z: -0.02319981, w: 0.965228}
+  m_LocalPosition: {x: -2.21, y: 3.08, z: -7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1311,6 +1311,7 @@ MonoBehaviour:
   menuCameraPostition: {fileID: 213237091}
   gameCameraPostition: {fileID: 1685777916}
   mainCamera: {fileID: 951827497}
+  audioSource: {fileID: 1102052183}
   gameConfig: {fileID: 11400000, guid: 22965aaef5c587c469206741cb4ee9d1, type: 2}
 --- !u!4 &1102052181
 Transform:
@@ -1347,12 +1348,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102052179}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 83d5e18101eac4c4888fb13effe01230, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_audioClip: {fileID: 8300000, guid: 820b3070218e27e4986963119567997a, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.267
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1690,10 +1691,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 00:00:00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d180e2d056133f1438276758af7589a1, type: 2}
-  m_sharedMaterial: {fileID: -1136870630551349264, guid: d180e2d056133f1438276758af7589a1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0e48203529d53e84ca56cdc120b9846a, type: 2}
+  m_sharedMaterial: {fileID: 5128381022899192959, guid: 0e48203529d53e84ca56cdc120b9846a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1717,8 +1718,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 3
+  m_fontSizeBase: 3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1781,7 +1782,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1136870630551349264, guid: d180e2d056133f1438276758af7589a1, type: 2}
+  - {fileID: 5128381022899192959, guid: 0e48203529d53e84ca56cdc120b9846a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2006,8 +2007,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685777916}
-  m_LocalRotation: {x: 0.13015893, y: -0.07433728, z: 0.0097867, w: 0.9886541}
-  m_LocalPosition: {x: 0.1625262, y: 3.46, z: -3.89}
+  m_LocalRotation: {x: -0.05373024, y: 0.00095839927, z: -0.00005156952, w: -0.99855506}
+  m_LocalPosition: {x: 0.04, y: 2.81, z: -3.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

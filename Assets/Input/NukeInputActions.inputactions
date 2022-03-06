@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Quit",
+                    "name": "QuitGame",
                     "type": "Button",
                     "id": "4b51d923-3ac0-4db6-a1fd-42a9bc280087",
                     "expectedControlType": "Button",
@@ -68,11 +68,11 @@
                 {
                     "name": "",
                     "id": "a55c0934-fddc-43ba-83e6-2898caf5960d",
-                    "path": "<Keyboard>/q",
-                    "interactions": "Tap",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Quit",
+                    "action": "QuitGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

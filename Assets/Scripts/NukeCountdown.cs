@@ -26,8 +26,9 @@ public class NukeCountdown : Singleton<NukeCountdown>
 
     private void startCountdown()
     {
-        timeRemaining = GameManager.Instance.gameConfig.timerInSeconds;
         Debug.Log("TIMER STARTED");
+        timeRemaining = GameManager.Instance.gameConfig.timerInSeconds;
+        timerDisplay.color = Color.green;
         isTimerRunning = true;
         DisplayCountdown();
     }
@@ -67,8 +68,8 @@ public class NukeCountdown : Singleton<NukeCountdown>
             }
             else
             {
-                nukeCountdownReachedZero();
                 isTimerRunning = false;
+                nukeCountdownReachedZero();
                 nukeCountdownReachedZero -= EventManager.Instance.NukeCountdownExpired;
             }
         }

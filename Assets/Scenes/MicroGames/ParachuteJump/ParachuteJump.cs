@@ -17,9 +17,12 @@ public class ParachuteJump : MicroGame
     [SerializeField] public float mass = 85f;
     [SerializeField] private GameObject skydiver;
     [SerializeField] private GameObject parachute;
+    [SerializeField] private GameObject target;
     private Rigidbody rb;
     public bool HasJumped = false;
     public bool PullChute = false;
+    private float originalX;
+    public Vector3 originalScale;
 
     private void OnEnable()
     {
@@ -40,7 +43,10 @@ public class ParachuteJump : MicroGame
 
     public override void Initialise()
     {
-        base.Initialise();     
+        base.Initialise();
+        originalX = target.transform.position.x;
+        originalScale = target.transform.localScale;
+        setTarget();
     }
 
 
@@ -64,8 +70,21 @@ public class ParachuteJump : MicroGame
 
     }
 
-    
 
+    public void setTarget()
+    {
+        Debug.Log(originalX.ToString());
+        float newX = Random.Range(0, 25);
+        float newScaleX = Random.Range(0.6f, 1f);
+        Vector3 newScale = new Vector3(newScaleX, originalScale.y, originalScale.z);
+
+
+        newX = newX + originalX;
+        Debug.Log(newX.ToString());
+        Vector3 newTargetPosition = new Vector3(newX, target.transform.position.y, target.transform.position.z);
+        target.transform.position = newTargetPosition;
+        target.transform.localScale = newScale;
+    }
 
 
     private void Jump()

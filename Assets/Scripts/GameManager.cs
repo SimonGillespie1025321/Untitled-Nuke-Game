@@ -31,6 +31,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public GameObject mainCamera;
 
     [SerializeField] public MainGameConfiguration gameConfig;
+    [SerializeField] public AudioSource audioSource;
 
 
     public delegate void StartNukeCountDown();
@@ -66,9 +67,10 @@ public class GameManager : Singleton<GameManager>
         AudioManager.Instance.Initialise();
 
 
-
+        ResetIndicators();
         offScreenDisplay.SetActive(true);
         mainCamera.transform.position = menuCameraPostition.transform.position;
+        mainCamera.transform.rotation = menuCameraPostition.transform.rotation;
         canvas.enabled = true;
 
         EventManager.failMicroGame += FailCurrentMicroGame;
@@ -88,12 +90,12 @@ public class GameManager : Singleton<GameManager>
 
     private void GameMenu()
     {
-        for(int resetIndicators = 0; resetIndicators < indicators.Length; resetIndicators++ )
-        {
-            indicators[resetIndicators].GetComponent<MeshRenderer>().material.color = Color.red;
-        }
+        
         EventManager.tap += TapStart;
+        audioSource.Stop();
         isPlaying = false;
+        mainCamera.transform.position = menuCameraPostition.transform.position;
+        mainCamera.transform.rotation = menuCameraPostition.transform.rotation;
 
     }
 
@@ -101,21 +103,32 @@ public class GameManager : Singleton<GameManager>
     {
         if (!isPlaying)
         {
+            ResetIndicators();
             //EventManager.tap -= TapStart;
             Debug.Log("TAP START ISPLAYING");
             isPlaying = true;
             offScreenDisplay.SetActive(false);
-            //mainCamera.transform.position = gameCameraPostition.transform.position;
+            mainCamera.transform.position = gameCameraPostition.transform.position;
+            mainCamera.transform.rotation = gameCameraPostition.transform.rotation;
             canvas.enabled = false;
             LoadNewMicrogame();
             startNukeCountDown();
+            audioSource.Play();
         }
-                      
+
 
     }
 
-   
-    
+    private void ResetIndicators()
+    {
+        for (int resetIndicators = 0; resetIndicators < indicators.Length; resetIndicators++)
+        {
+            indicators[resetIndicators].GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+                    
+    }
+
+
     private void GetMicroGameCollection()
     {
         if (TryGetComponent<MicroGameCollection>(out microGameCollection))

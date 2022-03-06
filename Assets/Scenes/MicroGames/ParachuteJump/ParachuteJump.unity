@@ -877,8 +877,10 @@ MonoBehaviour:
   mass: 0.8
   skydiver: {fileID: 888354035}
   parachute: {fileID: 1374517825}
+  target: {fileID: 1593441505}
   HasJumped: 0
   PullChute: 0
+  originalScale: {x: 0, y: 0, z: 0}
 --- !u!1 &709864406
 GameObject:
   m_ObjectHideFlags: 0

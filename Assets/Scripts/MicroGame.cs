@@ -34,9 +34,9 @@ public abstract class MicroGame : MonoBehaviour
     {
         
         EventManager.tap += Tap;
-        EventManager.hold += Hold;
-        EventManager.release += Release;
-        EventManager.mash += Mash;
+        //EventManager.hold += Hold;
+        //EventManager.release += Release;
+        //EventManager.mash += Mash;
         win += EventManager.Instance.Win;
         fail += EventManager.Instance.Fail;
         isPlaying = true;

@@ -17,3 +17,4 @@ MonoBehaviour:
   description: Jump from the Plane and land on the Target
   instructions: Press the Button to jump and the press it again to pull your chute.
   gameType: 0
+  sceneIndex: -2

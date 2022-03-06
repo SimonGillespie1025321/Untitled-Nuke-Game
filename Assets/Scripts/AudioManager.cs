@@ -9,7 +9,7 @@ public class AudioManager : Singleton<AudioManager>
    
     public void Initialise()
     {
-
+        Debug.Log("Initialise:" + this.name);
     }
 
 }

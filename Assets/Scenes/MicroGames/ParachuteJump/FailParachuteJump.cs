@@ -8,11 +8,16 @@ public class FailParachuteJump : MonoBehaviour
     [SerializeField] GameObject parachute;
     private void OnTriggerEnter(Collider other)
     {
+        
         // parachute.SetActive(false);
         if (other.tag == "Player")
         {
-        other.gameObject.SetActive(false);
-        GetComponentInParent<MicroGame>().FailConditionMet();
+            Debug.Log("Fail Jump");
+            other.gameObject.SetActive(false);
+
+           
+                GetComponentInParent<MicroGame>().FailConditionMet();
+            
         }
     }
 

@@ -18,8 +18,8 @@ public class ParachuteJump : MicroGame
     [SerializeField] private GameObject skydiver;
     [SerializeField] private GameObject parachute;
     private Rigidbody rb;
-    private bool HasJumped = false;
-    private bool PullChute = false;
+    public bool HasJumped = false;
+    public bool PullChute = false;
 
     private void OnEnable()
     {
@@ -94,15 +94,15 @@ public class ParachuteJump : MicroGame
 
 
     public override void WinConditionMet()
-    {   
-
+    {
+        Debug.Log("WIN CONDITION MET");
         //last line must be...
         Win();
     }
 
     public override void FailConditionMet()
     {
-
+        Debug.Log("FAIL CONDITION MET");
         //last line must be...
         Fail();
     }

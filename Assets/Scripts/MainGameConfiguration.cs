@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Main Game Configuration Settings")]
-public class MainGameConfiguration : MonoBehaviour
+[CreateAssetMenu(menuName = "Main Game Package")]
+
+public class MainGameConfiguration : ScriptableObject
 {
-    [SerializeField] public int microgamesToWin;
-    [SerializeField] public int timerInSeconds;
+    public int microgamesToWin;
+    public int timerInSeconds;
 
 }

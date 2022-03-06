@@ -5,6 +5,11 @@ using UnityEngine;
 public class Boundary : ParachuteJumpBoundsCheck
 {
     // Start is called before the first frame update
+
+    [SerializeField] GameObject microGame;
+
+    
+
     void Start()
     {
         
@@ -17,16 +22,25 @@ public class Boundary : ParachuteJumpBoundsCheck
     }
 
 
-    public override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-    }
-
     public override void OnTriggerExit(Collider other)
     {
         base.OnTriggerExit(other);
-        Destroy(other.transform.parent.gameObject);
     }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.tag);
+        if (other.tag == "Player")
+        {
+             microGame.GetComponent<MicroGame>().FailConditionMet();
+             Destroy(other.gameObject);
+        }
+        if (other.tag == "Plane")
+        {
+            Destroy(other.gameObject);
+        }
+    }
+    
 
     public override void OnTriggerStay(Collider other)
     {

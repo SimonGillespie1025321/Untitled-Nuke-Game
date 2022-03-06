@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class NukeCountdown : Singleton<NukeCountdown>
 {
@@ -30,7 +31,7 @@ public class NukeCountdown : Singleton<NukeCountdown>
         Debug.Log("TIMER STARTED");
         isTimerRunning = true;
         timerDisplay.color = Color.green;
-        DisplayCountdown();
+        //DisplayCountdown();
     }
 
     private void stopCountdown()
@@ -45,7 +46,8 @@ public class NukeCountdown : Singleton<NukeCountdown>
     void Update()
     {
         //Debug.Log("TIMER STARTED");
-        DisplayCountdown();
+        //if (isTimerRunning)
+            DisplayCountdown();
     }
 
     private void DisplayCountdown()
@@ -70,7 +72,7 @@ public class NukeCountdown : Singleton<NukeCountdown>
             {
                 nukeCountdownReachedZero();
                 isTimerRunning = false;
-                nukeCountdownReachedZero -= EventManager.Instance.NukeCountdownExpired;
+                //nukeCountdownReachedZero -= EventManager.Instance.NukeCountdownExpired;
             }
         }
     }

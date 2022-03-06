@@ -42,9 +42,11 @@ public class MicroGameLoader : Singleton<MicroGameLoader>
     public void UnloadMicrogame()
     {
         Debug.Log("MICROGAME UNLOADER: " + currentMicroGame.name);
+        if (SceneManager.sceneCount > 1)
         if (currentMicroGame.sceneName != null) // && isMicroGameLoaded)
         {
             Debug.Log("Unloading:" + currentMicroGame.sceneName);
+            Debug.Log("scenecount" + SceneManager.sceneCount);
             //currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
 
             AsyncOperation op = SceneManager.UnloadSceneAsync(currentMicroGame.sceneName);
@@ -56,7 +58,6 @@ public class MicroGameLoader : Singleton<MicroGameLoader>
                 //unloadingGame = false;
                 Debug.Log("unloadingGame = " + currentMicroGame.sceneName);
 
-                //offScreenDisplay.SetActive(true);
             };
         }
         else

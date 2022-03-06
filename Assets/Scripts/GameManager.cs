@@ -64,7 +64,7 @@ public class GameManager : Singleton<GameManager>
         MicroGameLoader.Instance.Initialise();
 
         // Start Audio Manager
-        AudioManager.Instance.Initialise();
+        //AudioManager.Instance.Initialise();
 
 
         ResetIndicators();
@@ -90,13 +90,17 @@ public class GameManager : Singleton<GameManager>
 
     private void GameMenu()
     {
-        
-        EventManager.tap += TapStart;
-        audioSource.Stop();
+        wonGame = false;
         isPlaying = false;
+        audioSource.Stop();
+            
+        
+        offScreenDisplay.SetActive(true);
+        
         mainCamera.transform.position = menuCameraPostition.transform.position;
         mainCamera.transform.rotation = menuCameraPostition.transform.rotation;
 
+        EventManager.tap += TapStart;
     }
 
     private void TapStart()
@@ -106,12 +110,13 @@ public class GameManager : Singleton<GameManager>
             ResetIndicators();
             //EventManager.tap -= TapStart;
             Debug.Log("TAP START ISPLAYING");
-            isPlaying = true;
             offScreenDisplay.SetActive(false);
             mainCamera.transform.position = gameCameraPostition.transform.position;
             mainCamera.transform.rotation = gameCameraPostition.transform.rotation;
             canvas.enabled = false;
             LoadNewMicrogame();
+            offScreenDisplay.SetActive(false);
+            isPlaying = true;
             startNukeCountDown();
             audioSource.Play();
         }
@@ -121,10 +126,12 @@ public class GameManager : Singleton<GameManager>
 
     private void ResetIndicators()
     {
+        indicatorIndex = 0;
         for (int resetIndicators = 0; resetIndicators < indicators.Length; resetIndicators++)
         {
             indicators[resetIndicators].GetComponent<MeshRenderer>().material.color = Color.red;
         }
+
                     
     }
 
@@ -158,13 +165,13 @@ public class GameManager : Singleton<GameManager>
         unloadMicrogame();
     }
 
-
+    
     
   
     public void WinCurrentMicroGame()
     {
-        offScreenDisplay.GetComponent<MeshRenderer>().material.color = Color.green;
-        offScreenDisplay.SetActive(true);
+        //offScreenDisplay.GetComponent<MeshRenderer>().material.color = Color.green;
+        //offScreenDisplay.SetActive(true);
         UnloadCurrentMicrogame();
         indicators[indicatorIndex].GetComponent<MeshRenderer>().material.color = Color.green;
         indicatorIndex++;
@@ -177,9 +184,11 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            LoadNewMicrogame();
-            StartCoroutine(WaitForUnload());
-            offScreenDisplay.SetActive(false);
+            if (!wonGame)
+            {
+                LoadNewMicrogame();
+                //offScreenDisplay.SetActive(false);
+            }
         }
     }
 
@@ -187,14 +196,21 @@ public class GameManager : Singleton<GameManager>
 
     public void FailCurrentMicroGame()
     {
-        offScreenDisplay.GetComponent<MeshRenderer>().material.color = Color.red;
-        offScreenDisplay.SetActive(true);
+        //offScreenDisplay.GetComponent<MeshRenderer>().material.color = Color.red;
+        //offScreenDisplay.SetActive(true);
         UnloadCurrentMicrogame();
         if (NukeCountdown.Instance.isTimerRunning)
         {
-            LoadNewMicrogame();
-            //StartCoroutine(WaitForUnload());
-            offScreenDisplay.SetActive(false);
+            if (!wonGame)
+            {
+                LoadNewMicrogame();
+                //StartCoroutine(WaitForUnload());
+                //offScreenDisplay.SetActive(false);
+            }
+            else
+            {
+               
+            }
         }
     }
 
@@ -202,6 +218,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("!!!NUKE EXPLODED!!!");
         canvas.enabled = true;
+        UnloadCurrentMicrogame();
         GameMenu();
     }
 
@@ -209,6 +226,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("!!!NUKE STOPPED!!!");
         canvas.enabled =true;
+        //UnloadCurrentMicrogame();
         GameMenu();
     }
 
@@ -222,19 +240,7 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    public void QuitGame()
-    {
-        UnloadCurrentMicrogame();
-
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #elif UNITY_WEBPLAYER
-            Application.OpenURL(webplayerQuitURL);
-        #else
-            Application.Quit();
-        #endif
-
-    }
+    
 
     public void KillAllManagers()
     {

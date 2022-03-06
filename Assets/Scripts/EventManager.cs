@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+
 public class EventManager : Singleton<EventManager>
 {
 
@@ -118,13 +119,15 @@ public class EventManager : Singleton<EventManager>
     }
 
 
+   
 
-
-    public void LoadMicroGame()
+public void LoadMicroGame()
     {
-        //Debug.Log("(EVENTMANAGER)LoadMicroGame:" + GameManager.Instance.currentMicroGame.sceneName);
+        Debug.Log("(EVENTMANAGER)LoadMicroGame:" + GameManager.Instance.currentMicroGame.sceneName);
         MicroGameLoader.Instance.currentMicroGame = GameManager.Instance.currentMicroGame;
-        loadNewMicroGame();
+        Debug.Log("(EVENTMANAGER)LoadMicroGame:" + GameManager.Instance.currentMicroGame.sceneName);
+
+    loadNewMicroGame();
 
     }
 

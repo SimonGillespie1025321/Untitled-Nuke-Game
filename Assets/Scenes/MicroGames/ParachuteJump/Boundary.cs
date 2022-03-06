@@ -32,6 +32,7 @@ public class Boundary : ParachuteJumpBoundsCheck
         Debug.Log(other.tag);
         if (other.tag == "Player")
         {
+            Debug.Log("Player went off screen");
              microGame.GetComponent<MicroGame>().FailConditionMet();
              Destroy(other.gameObject);
         }

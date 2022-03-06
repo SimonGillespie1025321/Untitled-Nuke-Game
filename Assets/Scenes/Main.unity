@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213237091}
   m_LocalRotation: {x: 0.09192083, y: 0.24361293, z: -0.023199808, w: 0.965228}
-  m_LocalPosition: {x: -2.22, y: 3.44, z: -7.2}
+  m_LocalPosition: {x: -1.37, y: 3.44, z: -7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -314,7 +314,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e9663b95234886c47a473ad5ed6aee08, type: 2}
+  - {fileID: 2100000, guid: 6c90eb7a28d244b45af8859c48ea2f1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -820,7 +820,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e9663b95234886c47a473ad5ed6aee08, type: 2}
+  - {fileID: 2100000, guid: 6c90eb7a28d244b45af8859c48ea2f1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1097,7 +1097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &975242834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1516,6 +1516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeRemaining: 10
+  isTimerRunning: 0
   timerDisplay: {fileID: 1401971167}
 --- !u!1 &1334476061
 GameObject:
@@ -1952,7 +1953,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e9663b95234886c47a473ad5ed6aee08, type: 2}
+  - {fileID: 2100000, guid: 6c90eb7a28d244b45af8859c48ea2f1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2152,7 +2153,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e9663b95234886c47a473ad5ed6aee08, type: 2}
+  - {fileID: 2100000, guid: 6c90eb7a28d244b45af8859c48ea2f1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

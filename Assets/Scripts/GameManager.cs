@@ -57,12 +57,15 @@ public class GameManager : Singleton<GameManager>
         //Start Input Manager
         PlayerController.Instance.Initialise();
 
+        NukeCountdown.Instance.Initialise();
 
         //Start Microgame Loader
         MicroGameLoader.Instance.Initialise();
 
         // Start Audio Manager
         AudioManager.Instance.Initialise();
+
+
 
         offScreenDisplay.SetActive(true);
         mainCamera.transform.position = menuCameraPostition.transform.position;
@@ -85,7 +88,12 @@ public class GameManager : Singleton<GameManager>
 
     private void GameMenu()
     {
+        for(int resetIndicators = 0; resetIndicators < indicators.Length; resetIndicators++ )
+        {
+            indicators[resetIndicators].GetComponent<MeshRenderer>().material.color = Color.red;
+        }
         EventManager.tap += TapStart;
+        isPlaying = false;
 
     }
 
@@ -127,87 +135,18 @@ public class GameManager : Singleton<GameManager>
 
     private void LoadNewMicrogame()
     {
-        /* if (haveCollection)
-         {
-             Debug.Log("Loading:" + currentMicroGame.sceneName);
-             if (unloadingGame)
-             {
-                 Debug.Log("Trying to load while unloading");
-                 StartCoroutine(WaitForUnload());
-             }
-             LoadMicroGameScene(currentMicroGame.sceneName);
-         Debug.Log("(Load)Number of scenes loaded:" + SceneManager.sceneCount);
-         }
-         else
-         {
-             Debug.Log("Micro Game Collection not found");
-         }*/
-
+        
         loadMicrogame();
     }
 
     private void UnloadCurrentMicrogame()
     {
-        /*if (currentMicroGame.sceneName != null)
-        {
-            unloadingGame = true;
-            Debug.Log("unloadingGame = " + unloadingGame);
-            UnloadMicroGameScene(currentMicroGame.sceneName);
-            
-        Debug.Log("(Unload)Number of scenes loaded:" + SceneManager.sceneCount);
-
-        }
-        else
-            Debug.Log("No microgame to unload");*/
+        
         unloadMicrogame();
     }
 
 
-    /*public void LoadMicroGameScene(string microGame)
-    {
-        StartCoroutine(WaitForUnload());
-        if (currentMicroGame.sceneName != null) // && !isMicroGameLoaded)
-        {
-            
-
-            AsyncOperation op = SceneManager.LoadSceneAsync(currentMicroGame.sceneName, LoadSceneMode.Additive);
-            op.completed += (AsyncOperation result) =>
-            {
-                //Debug.Log("Loaded micro game at index: " + currentMicroGame.sceneIndex);
-                //Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
-                isMicroGameLoaded = true;
-                
-                //offScreenDisplay.SetActive(false);
-            };
-        }
-        else
-            Debug.Log("No microgame to load");
-    }
-
-    public void UnloadMicroGameScene(string microGame)
-    {
-        
-        if (currentMicroGame.sceneName != null) // && isMicroGameLoaded)
-        {
-            Debug.Log("Unloading:" + currentMicroGame.sceneName);
-            //currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
-            AsyncOperation op = SceneManager.UnloadSceneAsync(currentMicroGame.sceneName);
-            op.completed += (AsyncOperation result) =>
-            {
-                //Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
-                //Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
-                isMicroGameLoaded = false;
-                unloadingGame = false;
-                Debug.Log("unloadingGame = " + unloadingGame);
-
-                //offScreenDisplay.SetActive(true);
-            };
-        }
-        else
-            Debug.Log("No microgame to unload");
-    }
-*/
-
+    
   
     public void WinCurrentMicroGame()
     {
@@ -219,38 +158,45 @@ public class GameManager : Singleton<GameManager>
         if (indicatorIndex >= gameConfig.microgamesToWin) //indicators.Length)
         {
             wonGame = true;
+            indicatorIndex = 0;
             Debug.Log("----------------WON WHOLE GAME---------------");
             EventManager.Instance.NukeHasBeenStopped();
         }
         else
         {
+            LoadNewMicrogame();
             StartCoroutine(WaitForUnload());
-            //StopCoroutine(WaitForUnload());
-            //LoadNewMicrogame();
             offScreenDisplay.SetActive(false);
         }
     }
+
+
 
     public void FailCurrentMicroGame()
     {
         offScreenDisplay.GetComponent<MeshRenderer>().material.color = Color.red;
         offScreenDisplay.SetActive(true);
         UnloadCurrentMicrogame();
-        //StartCoroutine(WaitForUnload());
-        //StopCoroutine(WaitForUnload());
-        //LoadNewMicrogame();
-        offScreenDisplay.SetActive(false);
-        NukeExploded();
+        if (NukeCountdown.Instance.isTimerRunning)
+        {
+            LoadNewMicrogame();
+            //StartCoroutine(WaitForUnload());
+            offScreenDisplay.SetActive(false);
+        }
     }
 
     public void NukeExploded()
     {
         Debug.Log("!!!NUKE EXPLODED!!!");
+        canvas.enabled = true;
+        GameMenu();
     }
 
     public void NukeStopped()
     {
         Debug.Log("!!!NUKE STOPPED!!!");
+        canvas.enabled =true;
+        GameMenu();
     }
 
 
@@ -258,7 +204,7 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("waiting for unload:" + Time.deltaTime.ToString());
         //yield return new WaitWhile(() => (unloadingGame));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("waited for unload:" + Time.deltaTime.ToString());
 
     }

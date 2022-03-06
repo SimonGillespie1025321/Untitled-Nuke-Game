@@ -43,7 +43,7 @@ public abstract class MicroGame : MonoBehaviour
     }
 
 
-    public void UnsubscriveEvents()
+    public void UnsubscribeEvents()
     {
         EventManager.tap -= Tap;
         EventManager.hold -= Hold;
@@ -53,6 +53,9 @@ public abstract class MicroGame : MonoBehaviour
         fail -= EventManager.Instance.Fail;
 
     }
+
+
+    
 
     virtual public void Tap()
     {

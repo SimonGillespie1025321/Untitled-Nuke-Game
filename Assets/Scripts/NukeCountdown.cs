@@ -5,17 +5,17 @@ using UnityEngine.Events;
 using TMPro;
 using System;
 
-public class NukeCountdown : MonoBehaviour
+public class NukeCountdown : Singleton<NukeCountdown>
 {
 
     public delegate void NukeCountdownReachedZero();
     public static event NukeCountdownReachedZero nukeCountdownReachedZero;
     public float timeRemaining;
-    private bool isTimerRunning = false;
+    public bool isTimerRunning = false;
     [SerializeField] public TextMeshPro timerDisplay;
          
     // Start is called before the first frame update
-    void Start()
+    public void Initialise()
     {
         nukeCountdownReachedZero += EventManager.Instance.NukeCountdownExpired;
 
@@ -26,6 +26,7 @@ public class NukeCountdown : MonoBehaviour
 
     private void startCountdown()
     {
+        timeRemaining = GameManager.Instance.gameConfig.timerInSeconds;
         Debug.Log("TIMER STARTED");
         isTimerRunning = true;
         DisplayCountdown();

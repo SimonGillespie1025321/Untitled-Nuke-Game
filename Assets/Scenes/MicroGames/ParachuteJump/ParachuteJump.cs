@@ -33,6 +33,11 @@ public class ParachuteJump : MicroGame
     }
 
 
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
     public override void Initialise()
     {
         base.Initialise();     

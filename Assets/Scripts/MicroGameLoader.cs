@@ -46,6 +46,7 @@ public class MicroGameLoader : Singleton<MicroGameLoader>
         {
             Debug.Log("Unloading:" + currentMicroGame.sceneName);
             //currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
+
             AsyncOperation op = SceneManager.UnloadSceneAsync(currentMicroGame.sceneName);
             op.completed += (AsyncOperation result) =>
             {

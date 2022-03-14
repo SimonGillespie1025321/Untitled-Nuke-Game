@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 355429478}
   m_LocalRotation: {x: 0.078459114, y: -0, z: -0, w: 0.99691737}
   m_LocalPosition: {x: -0.054, y: 0.2385, z: 0.113}
-  m_LocalScale: {x: 0.25, y: 0.18, z: 1}
+  m_LocalScale: {x: 0.26, y: 0.18, z: 1}
   m_Children: []
   m_Father: {fileID: 2099508894}
   m_RootOrder: 1
@@ -1074,8 +1074,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951827497}
-  m_LocalRotation: {x: 0.12890658, y: 0.19509341, z: -0.02587508, w: 0.9719322}
-  m_LocalPosition: {x: -1.4, y: 3.9, z: -8.77}
+  m_LocalRotation: {x: 0.09192083, y: 0.24361293, z: -0.02319981, w: 0.965228}
+  m_LocalPosition: {x: -2.21, y: 3.08, z: -7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1449,6 +1449,7 @@ MonoBehaviour:
   menuCameraPostition: {fileID: 213237091}
   gameCameraPostition: {fileID: 1685777916}
   mainCamera: {fileID: 951827497}
+  audioSource: {fileID: 1102052183}
   gameConfig: {fileID: 11400000, guid: 22965aaef5c587c469206741cb4ee9d1, type: 2}
   audioSource: {fileID: 1102052183}
 --- !u!4 &1102052181

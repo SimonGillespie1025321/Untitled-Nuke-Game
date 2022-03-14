@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -48,9 +49,21 @@ public class MicroGameLoader : Singleton<MicroGameLoader>
             Debug.Log("Unloading:" + currentMicroGame.sceneName);
             Debug.Log("scenecount" + SceneManager.sceneCount);
             //currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
+            try
+            {
+                AsyncOperation op = SceneManager.UnloadSceneAsync(currentMicroGame.sceneName);
+                op.completed += (AsyncOperation result) =>
+                {
+                    //Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
+                    //Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
+                    //isMicroGameLoaded = false;
+                    //unloadingGame = false;
+                    Debug.Log("unloadingGame = " + currentMicroGame.sceneName);
 
-            AsyncOperation op = SceneManager.UnloadSceneAsync(currentMicroGame.sceneName);
-            op.completed += (AsyncOperation result) =>
+                    //offScreenDisplay.SetActive(true);
+                };
+            }
+            catch (Exception e)
             {
                 //Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
                 //Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);

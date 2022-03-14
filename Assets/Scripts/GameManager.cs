@@ -27,8 +27,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public GameObject[] indicators;
     private int indicatorIndex = 0;
     [SerializeField] public GameObject menuCameraPostition;
+
     [SerializeField] public GameObject gameCameraPostition;
     [SerializeField] public GameObject mainCamera;
+    [SerializeField] public AudioSource audioSource;
 
     [SerializeField] public MainGameConfiguration gameConfig;
     [SerializeField] public AudioSource audioSource;
@@ -178,8 +180,10 @@ public class GameManager : Singleton<GameManager>
         if (indicatorIndex >= gameConfig.microgamesToWin) //indicators.Length)
         {
             wonGame = true;
-            indicatorIndex = 0;
             Debug.Log("----------------WON WHOLE GAME---------------");
+            indicatorIndex = 0;
+            mainCamera.transform.position = menuCameraPostition.transform.position;
+            mainCamera.transform.rotation = menuCameraPostition.transform.rotation;
             EventManager.Instance.NukeHasBeenStopped();
         }
         else

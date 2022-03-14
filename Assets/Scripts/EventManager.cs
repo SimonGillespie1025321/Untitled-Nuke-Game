@@ -97,11 +97,13 @@ public class EventManager : Singleton<EventManager>
 
     public void StartCountDown()
     {
+        Debug.Log("!!!START COUNTDOWM!!!");
         startNukeCountdown();
     }
 
     public void StopCountDown()
     {
+        Debug.Log("!!!STOP COUNTDOWM!!!");
         stopNukeCountdown();
     }
 

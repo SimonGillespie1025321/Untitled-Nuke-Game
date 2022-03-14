@@ -35,7 +35,7 @@ public  class PlayerController : Singleton<PlayerController>
         nukeInputActions.Player.TapHold.canceled += EventManager.Instance.KeyHoldRelease;
         nukeInputActions.Player.TapHold.Enable();
         nukeInputActions.Player.Mash.performed += EventManager.Instance.KeyMash;
-        nukeInputActions.Player.Mash.Enable();*/
+        nukeInputActions.Player.Mash.Enable();
 
     }
 

@@ -30,7 +30,6 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] public GameObject gameCameraPostition;
     [SerializeField] public GameObject mainCamera;
-    [SerializeField] public AudioSource audioSource;
 
     [SerializeField] public MainGameConfiguration gameConfig;
     [SerializeField] public AudioSource audioSource;
@@ -111,7 +110,7 @@ public class GameManager : Singleton<GameManager>
         {
             ResetIndicators();
             //EventManager.tap -= TapStart;
-            Debug.Log("TAP START ISPLAYING");
+            //Debug.Log("TAP START ISPLAYING");
             offScreenDisplay.SetActive(false);
             mainCamera.transform.position = gameCameraPostition.transform.position;
             mainCamera.transform.rotation = gameCameraPostition.transform.rotation;

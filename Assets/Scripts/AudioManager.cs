@@ -7,10 +7,9 @@ public class AudioManager : Singleton<AudioManager>
     // Start is called before the first frame update
     
    
-
     public void Initialise()
     {
-
+        Debug.Log("Initialise:" + this.name);
     }
 
 }

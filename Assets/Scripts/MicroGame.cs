@@ -7,11 +7,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 
-public abstract class MicroGameBase : MonoBehaviour
+public abstract class MicroGame : MonoBehaviour
 {
-    private Coroutine MicroGameCoroutine;
-    private WaitForSeconds defaultYieldWait = null;
-
     public Utility.MicroGameType microGameType;
 
     public string sceneName;
@@ -19,19 +16,77 @@ public abstract class MicroGameBase : MonoBehaviour
 
     public int gameWinState;
     public bool isPlaying;
+    public bool isPaused;
 
     [SerializeField] AudioClip[] audioAssets;
 
+    public delegate void WinEvent();
+    public static event WinEvent win;
+
+    public delegate void FailEvent();
+    public static event FailEvent fail;
 
 
-    /* this is made to be overridden with the MicroGame startup code */
+    /* Initialise is made to be overridden with the MicroGame startup code 
+        override must call the base
+     */
     virtual public void Initialise() 
     {
-        sceneIndex = SceneManager.GetSceneByName(sceneName).buildIndex;
-        Debug.Log("Scene Index: " + sceneIndex);
-
         
+        EventManager.tap += Tap;
+        EventManager.hold += Hold;
+        EventManager.release += Release;
+        EventManager.mash += Mash;
+        win += EventManager.Instance.Win;
+        fail += EventManager.Instance.Fail;
+        isPlaying = true;
     }
-  
+
+
+    public void UnsubscribeEvents()
+    {
+        EventManager.tap -= Tap;
+        EventManager.hold -= Hold;
+        EventManager.release -= Release;
+        EventManager.mash -= Mash;
+        win -= EventManager.Instance.Win;
+        fail -= EventManager.Instance.Fail;
+
+    }
+
+
+    
+
+    virtual public void Tap()
+    {
+    }
+
+
+    virtual public void Hold()
+    {
+    }
+
+    virtual public void Release()
+    {
+    }
+
+    virtual public void Mash()
+    {
+    }
+
+    virtual public void Win()
+    {
+        win();
+    }
+
+    virtual public void Fail()
+    {
+        fail();
+    }
+
+    public abstract void WinConditionMet();
+
+    public abstract void FailConditionMet();
+
 
 }

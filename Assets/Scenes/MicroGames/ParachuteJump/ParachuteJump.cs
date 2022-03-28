@@ -4,110 +4,151 @@ using UnityEngine;
 
 
 
-public class ParachuteJump : MicroGameBase
+public class ParachuteJump : MicroGame
 {
-    private bool jump = false;
-    private bool pull = false;
-    private bool landed = false;
-    private bool inAir = false;
-    
-    private float groundLevel = -19f;
-    private float pullAltitude = 5;
-    
-    private GameObject parachute;
-    private GameObject skydiver;
-    
-    private Rigidbody skydiverRB;
-    private Rigidbody parachuteRB;
+
+
+
+    [SerializeField] public  float thrustyJump = 1.0f;
+    [SerializeField] public float thrustxJump = 1.0f;
+    [SerializeField] public float thrustyShoot = 1.0f;
+    [SerializeField] public float thrustxShoot = 1.0f;
+    [SerializeField] public float chuteDrag = 1.0f;
+    [SerializeField] public float mass = 85f;
+    [SerializeField] private GameObject skydiver;
+    [SerializeField] private GameObject parachute;
+    [SerializeField] private GameObject target;
+    private Rigidbody rb;
+    public bool HasJumped = false;
+    public bool PullChute = false;
+    private float originalX;
+    public Vector3 originalScale;
 
     private void OnEnable()
     {
-        //IMPORTANT:  It is critical that sceneName be set to the scene name exactly
-        sceneName = "ParachuteJump";
-        //---------------
-        PlayerController.nukeKeyPressed += TapPressed;
     }
 
     public void Start()
     {
         Initialise();
+        
+        originalX = target.transform.position.x;
+        originalScale = target.transform.localScale;
+        setTarget();
 
-        parachute = GameObject.Find("Parachute");
 
-        skydiver = GameObject.Find("Skydiver Vertical");
 
-        if (!skydiver.TryGetComponent<Rigidbody>(out skydiverRB))
-            return;
+    }
+
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 
     public override void Initialise()
     {
         base.Initialise();
-        
-        microGameType = Utility.MicroGameType.Tap;
-        GameManager.Instance.loadedGameType = microGameType;
-        PlayerController.Instance.SetKeyFunction(microGameType);
+        originalX = target.transform.position.x;
+        originalScale = target.transform.localScale;
+        setTarget();
+    }
+
+    public void setTarget()
+    {
+       // Debug.Log(originalX.ToString());
+        float newX = Random.Range(0, 25);
+        float newScaleX = Random.Range(0.6f, 1f);
+        Vector3 newScale = new Vector3(newScaleX,originalScale.y, originalScale.z);
+
+
+        newX = newX + originalX;
+        //Debug.Log(newX.ToString());
+        Vector3 newTargetPosition = new Vector3(newX, target.transform.position.y, target.transform.position.z);
+        target.transform.position = newTargetPosition;
+        target.transform.localScale = newScale;
     }
 
 
-    public void OnDestroy()
-    {
-        PlayerController.nukeKeyPressed -= TapPressed;
-    }
 
-    public void TapPressed()
+    //Game logic goes here
+    public override void Tap()
     {
-        Debug.Log("TAP HAS BEEN PRESSED");
-
-        if (!jump)
+        if (isPlaying)
         {
-            jump = true;
-        }
-        else if (inAir)
-        { 
-            pull = true; 
+            if (!HasJumped)
+            {
+                Jump();
+            }
+            else if (!PullChute)
+            {
+                Chute();
+            }
         }
 
     }
-     
-    public void FixedUpdate()
+
+
+   /* public void setTarget()
     {
-        if (!landed)
+        Debug.Log(originalX.ToString());
+        float newX = Random.Range(0, 25);
+        float newScaleX = Random.Range(0.6f, 1f);
+        Vector3 newScale = new Vector3(newScaleX, originalScale.y, originalScale.z);
+
+
+        newX = newX + originalX;
+        Debug.Log(newX.ToString());
+        Vector3 newTargetPosition = new Vector3(newX, target.transform.position.y, target.transform.position.z);
+        target.transform.position = newTargetPosition;
+        target.transform.localScale = newScale;
+    }*/
+
+
+    private void Jump()
+    {
+        // skydiver
+
+        if (skydiver.TryGetComponent<Rigidbody>(out rb)) 
         {
-            if (jump & !inAir)
-            {
-
-                Debug.Log("jump");
-                inAir = true;
-                skydiverRB.useGravity = true;
-                skydiverRB.AddForce(-11f, 3f, 0, ForceMode.Impulse);
-
-            }
-            else if (!pull && inAir)
-            {
-                Debug.Log("pull");
-                skydiverRB.AddForce(9f, 1f, 0, ForceMode.Impulse);
-
-            }
-            else if (inAir && pull)
-            {
-                Debug.Log("float");
-                Vector3 skydiverPos = skydiver.transform.position;
-                skydiverPos.y = skydiverPos.y + 5;
-                parachute.transform.position = skydiverPos;
-                if (skydiver.transform.position.y <= groundLevel)
-                {
-                    landed = true;
-                    skydiverRB.velocity = Vector3.zero;
-                }
-            }
-            if (landed)
-            {
-                parachute.SetActive(false);
-            }
+            rb.mass = mass;
+            rb.useGravity = true;
+            rb.AddForce(thrustxJump, thrustyJump, 0, ForceMode.Impulse);
+            HasJumped = true;
+            transform.parent = null;
+            Debug.Log("Skydiver Jumped");
         }
-
+    }
+    private void Chute()
+    {
+        //parachute
+        if (parachute != null)
+        {
+            parachute.SetActive(true);
+            rb.AddForce(thrustxShoot, thrustyShoot, 0, ForceMode.Impulse);
+            rb.drag = chuteDrag;
+            rb.mass = mass/10;
+            Debug.Log("Skydiver Pulled Shoot");
+            PullChute = true;
+        }
+        else Debug.Log("THERES NO CHUTE!!!");
     }
 
 
+    public override void WinConditionMet()
+    {
+        Debug.Log("WIN CONDITION MET");
+        //last line must be...
+        Win();
+    }
+
+    public override void FailConditionMet()
+    {
+        Debug.Log("FAIL CONDITION MET");
+        //last line must be...
+        Fail();
+    }
 }
+
+
+

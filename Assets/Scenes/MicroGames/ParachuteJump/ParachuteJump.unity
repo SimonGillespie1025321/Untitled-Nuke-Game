@@ -875,6 +875,7 @@ MonoBehaviour:
   thrustxShoot: 6
   chuteDrag: 0.2
   mass: 0.6
+  earliestJumpPosition: 18
   skydiver: {fileID: 888354035}
   parachute: {fileID: 1374517825}
   target: {fileID: 1593441505}

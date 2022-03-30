@@ -16,20 +16,23 @@ public class GameManager : Singleton<GameManager>
     public MicroGameCollection microGameCollection;
     public MicroGameDefinition currentMicroGame;
     private int currentMicroGameIndex;
+    
 
     private bool isMicroGameLoaded = false;
     private bool wonGame = false;
-    private bool loseGame = false;
 
 
     [SerializeField] public Canvas canvas;
     [SerializeField] public GameObject offScreenDisplay;
-    [SerializeField] public GameObject[] indicators;
+    
+
     private int indicatorIndex = 0;
     [SerializeField] public GameObject menuCameraPostition;
 
     [SerializeField] public GameObject gameCameraPostition;
     [SerializeField] public GameObject mainCamera;
+
+    [SerializeField] public GameObject indicators; 
 
     [SerializeField] public MainGameConfiguration gameConfig;
     [SerializeField] public AudioSource audioSource;
@@ -68,7 +71,6 @@ public class GameManager : Singleton<GameManager>
         //AudioManager.Instance.Initialise();
 
 
-        ResetIndicators();
         offScreenDisplay.SetActive(true);
         mainCamera.transform.position = menuCameraPostition.transform.position;
         mainCamera.transform.rotation = menuCameraPostition.transform.rotation;
@@ -84,6 +86,7 @@ public class GameManager : Singleton<GameManager>
         stopNukeCountDown += EventManager.Instance.StopCountDown;
 
         GetMicroGameCollection();
+        
 
         GameMenu();
 
@@ -108,7 +111,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (!isPlaying)
         {
-            ResetIndicators();
+            ResetIndicators(Utility.LEDState.Negative);
             //EventManager.tap -= TapStart;
             //Debug.Log("TAP START ISPLAYING");
             offScreenDisplay.SetActive(false);
@@ -125,15 +128,15 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    private void ResetIndicators()
-    {
-        indicatorIndex = 0;
-        for (int resetIndicators = 0; resetIndicators < indicators.Length; resetIndicators++)
-        {
-            indicators[resetIndicators].GetComponent<MeshRenderer>().material.color = Color.red;
-        }
 
-                    
+    
+
+
+    private void ResetIndicators(Utility.LEDState ledState)
+    {
+        indicators.GetComponent<LEDIndicator>().ResetIndicator(ledState);
+
+
     }
 
 
@@ -169,13 +172,13 @@ public class GameManager : Singleton<GameManager>
     
     
   
-    public void WinCurrentMicroGame()
+    public void WinCurrentMicroGame() 
     {
         //offScreenDisplay.GetComponent<MeshRenderer>().material.color = Color.green;
         //offScreenDisplay.SetActive(true);
         UnloadCurrentMicrogame();
-        indicators[indicatorIndex].GetComponent<MeshRenderer>().material.color = Color.green;
-        indicatorIndex++;
+        //indicators[indicatorIndex].GetComponent<MeshRenderer>().material.color = Color.green;
+        //indicatorIndex++;
         if (indicatorIndex >= gameConfig.microgamesToWin) //indicators.Length)
         {
             wonGame = true;
@@ -234,15 +237,7 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-    IEnumerator WaitForUnload()
-    {
-        Debug.Log("waiting for unload:" + Time.deltaTime.ToString());
-        //yield return new WaitWhile(() => (unloadingGame));
-        yield return new WaitForSeconds(2f);
-        Debug.Log("waited for unload:" + Time.deltaTime.ToString());
-
-    }
-
+ 
     
 
     public void KillAllManagers()

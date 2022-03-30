@@ -12,10 +12,14 @@ public static class Utility
     {
         Win,
         Fail
-    };
+    }
 
-
-
+    public enum LEDState
+    {
+        Off,
+        Positive,
+        Negative
+    }
 
 
 }

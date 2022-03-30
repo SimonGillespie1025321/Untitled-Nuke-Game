@@ -16,7 +16,6 @@ public class NukeCountdown : Singleton<NukeCountdown>
     public GameObject[] ledDisplay;
     public Material[] ledNumbers;
          
-    // Start is called before the first frame update
     public void Initialise()
     {
         nukeCountdownReachedZero += EventManager.Instance.NukeCountdownExpired;
@@ -40,8 +39,6 @@ public class NukeCountdown : Singleton<NukeCountdown>
         Debug.Log("TIMER STARTED");
         timeRemaining = GameManager.Instance.gameConfig.timerInSeconds;
         isTimerRunning = true;
-        /*timerDisplay.color = Color.green;
-        timerDisplay.color = Color.green;*/
         DisplayCountdown();
     }
 
@@ -51,7 +48,6 @@ public class NukeCountdown : Singleton<NukeCountdown>
         isTimerRunning = false;
     }
 
-    // Update is called once per frame
 
 
     void Update()
@@ -72,9 +68,8 @@ public class NukeCountdown : Singleton<NukeCountdown>
                 float minutes = Mathf.FloorToInt(timeRemaining / 60);
                 float seconds = Mathf.FloorToInt(timeRemaining % 60);
 
-                string timerText = "00" + string.Format("{0:00}{1:00}", minutes, seconds);
+                string timerText = string.Format("{0:00}{1:00}", minutes, seconds);
                 char[] timerNumbers = timerText.ToCharArray();
-                Debug.Log("timerText = " + timerText);
                 for (int index = 0; index < ledDisplay.Length; index++)
                 {
                     
@@ -83,11 +78,7 @@ public class NukeCountdown : Singleton<NukeCountdown>
                     ledDisplay[index].GetComponentInChildren<Renderer>().material = ledNumbers[numberToDisplay];
                 }
 
-                if (seconds <= 5)
-                {
-                    //timerDisplay.color = Color.red;
-
-                }
+                
                 timeRemaining -= Time.deltaTime;
             }
             else

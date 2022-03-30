@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Main
   m_EditorClassIdentifier: 
   microgamesToWin: 4
-  timerInSeconds: 90
+  timerInSeconds: 300

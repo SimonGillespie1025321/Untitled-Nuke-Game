@@ -42,6 +42,9 @@ public class EventManager : Singleton<EventManager>
     public delegate void NukeStopped();
     public static event NukeStopped nukeStopped;
 
+    public delegate void IncreaseIndictor();
+    public static event IncreaseIndictor increaseIndictor;
+
     public delegate void LoadNewMicroGame();
     public static event LoadNewMicroGame loadNewMicroGame;
 
@@ -58,25 +61,25 @@ public class EventManager : Singleton<EventManager>
 
     public void KeyTap(InputAction.CallbackContext obj)
     {
-            Debug.Log("Tapped");
+            ///Debug.Log("Tapped");
             tap();
 
     }
     public void KeyHold(InputAction.CallbackContext obj)
     {
-            Debug.Log("Hold");
+            //Debug.Log("Hold");
             hold();
     }
 
     public void KeyHoldRelease(InputAction.CallbackContext obj)
     {
-            Debug.Log("Released");
+            //Debug.Log("Released");
             release();
     }
 
     public void KeyMash(InputAction.CallbackContext obj)
     {
-            Debug.Log("Mashed");
+            //Debug.Log("Mashed");
             mash();
     }
     
@@ -86,6 +89,7 @@ public class EventManager : Singleton<EventManager>
     public void Win()
     {
             Debug.Log("!!!WIN MICROGAME!!!");
+            increaseIndictor();
             winMicroGame();
     }
 
@@ -97,13 +101,13 @@ public class EventManager : Singleton<EventManager>
 
     public void StartCountDown()
     {
-        Debug.Log("!!!START COUNTDOWM!!!");
+        Debug.Log("!!!START COUNTDOWN!!!");
         startNukeCountdown();
     }
 
     public void StopCountDown()
     {
-        Debug.Log("!!!STOP COUNTDOWM!!!");
+        Debug.Log("!!!STOP COUNTDOWN!!!");
         stopNukeCountdown();
     }
 
@@ -120,22 +124,25 @@ public class EventManager : Singleton<EventManager>
         nukeStopped();
     }
 
+    
 
-   
 
-public void LoadMicroGame()
+
+
+
+    public void LoadMicroGame()
     {
-        Debug.Log("(EVENTMANAGER)LoadMicroGame:" + GameManager.Instance.currentMicroGame.sceneName);
+        //Debug.Log("(EVENTMANAGER)LoadMicroGame:" + GameManager.Instance.currentMicroGame.sceneName);
         MicroGameLoader.Instance.currentMicroGame = GameManager.Instance.currentMicroGame;
-        Debug.Log("(EVENTMANAGER)LoadMicroGame:" + GameManager.Instance.currentMicroGame.sceneName);
+        //Debug.Log("(EVENTMANAGER)LoadMicroGame:" + GameManager.Instance.currentMicroGame.sceneName);
 
-    loadNewMicroGame();
+        loadNewMicroGame();
 
     }
 
     public void UnloadCurrentMicroGame()
     {
-        Debug.Log("(EVENTMANAGER)UnloadMicroGame");
+        //Debug.Log("(EVENTMANAGER)UnloadMicroGame");
         unloadCurrentMicroGame();
     }
 

@@ -21,7 +21,7 @@ public class MicroGameLoader : Singleton<MicroGameLoader>
 
     public void LoadMicrogame()
     {
-        Debug.Log("MICROGAME LOADER: " + currentMicroGame.name);
+        //Debug.Log("MICROGAME LOADER: " + currentMicroGame.name);
         if (currentMicroGame.sceneName != null) // && !isMicroGameLoaded)
         {
 
@@ -42,18 +42,18 @@ public class MicroGameLoader : Singleton<MicroGameLoader>
 
     public void UnloadMicrogame()
     {
-        Debug.Log("MICROGAME UNLOADER: " + currentMicroGame.name);
+        //Debug.Log("MICROGAME UNLOADER: " + currentMicroGame.name);
         if (SceneManager.sceneCount > 1)
-        if (currentMicroGame.sceneName != null) // && isMicroGameLoaded)
-        {
-            Debug.Log("Unloading:" + currentMicroGame.sceneName);
-            Debug.Log("scenecount" + SceneManager.sceneCount);
-            //currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
-            try
+            if (currentMicroGame.sceneName != null) // && isMicroGameLoaded)
             {
-                AsyncOperation op = SceneManager.UnloadSceneAsync(currentMicroGame.sceneName);
-                op.completed += (AsyncOperation result) =>
+                //Debug.Log("Unloading:" + currentMicroGame.sceneName);
+                //Debug.Log("scenecount" + SceneManager.sceneCount);
+                //currentMicroGame.sceneIndex = SceneManager.GetSceneByName(currentMicroGame.sceneName).buildIndex;
+                try
                 {
+                    AsyncOperation op = SceneManager.UnloadSceneAsync(currentMicroGame.sceneName);
+                    op.completed += (AsyncOperation result) =>
+                    {
                     //Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
                     //Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
                     //isMicroGameLoaded = false;
@@ -62,19 +62,20 @@ public class MicroGameLoader : Singleton<MicroGameLoader>
 
                     //offScreenDisplay.SetActive(true);
                 };
-            }
-            catch (Exception e)
-            {
-                //Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
-                //Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
-                //isMicroGameLoaded = false;
-                //unloadingGame = false;
-                Debug.Log("unloadingGame = " + currentMicroGame.sceneName);
+                }
+                catch (Exception e)
+                {
+                    //Debug.Log("Unloaded micro game at index: " + currentMicroGame.sceneIndex);
+                    //Debug.Log("Number of scenes loaded:" + SceneManager.sceneCount);
+                    //isMicroGameLoaded = false;
+                    //unloadingGame = false;
+                    //Debug.Log("unloadingGame = " + currentMicroGame.sceneName);
 
-            };
-        }
-        else
-            Debug.Log("No microgame to unload");
+                };
+            }
+            else {
+            //Debug.Log("No microgame to unload");
+            }
 
     }
 }

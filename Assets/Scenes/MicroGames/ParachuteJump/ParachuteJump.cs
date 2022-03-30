@@ -15,6 +15,7 @@ public class ParachuteJump : MicroGame
     [SerializeField] public float thrustxShoot = 1.0f;
     [SerializeField] public float chuteDrag = 1.0f;
     [SerializeField] public float mass = 85f;
+    [SerializeField] public float earliestJumpPosition;
     [SerializeField] private GameObject skydiver;
     [SerializeField] private GameObject parachute;
     [SerializeField] private GameObject target;
@@ -57,7 +58,7 @@ public class ParachuteJump : MicroGame
     public void setTarget()
     {
        // Debug.Log(originalX.ToString());
-        float newX = Random.Range(0, 25);
+        float newX = Random.Range(0, 20);
         float newScaleX = Random.Range(0.6f, 1f);
         Vector3 newScale = new Vector3(newScaleX,originalScale.y, originalScale.z);
 
@@ -78,7 +79,8 @@ public class ParachuteJump : MicroGame
         {
             if (!HasJumped)
             {
-                Jump();
+                if (skydiver.transform.parent.localPosition.x > earliestJumpPosition)
+                    Jump();
             }
             else if (!PullChute)
             {

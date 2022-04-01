@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Plane
+  - Duck
+  - BoundsCheck
   layers:
   - Default
   - TransparentFX

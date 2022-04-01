@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MicroGames/ParachuteJump/ParachuteJump.unity
     guid: 94e4fbe8c7c983d418280559c714a838
+  - enabled: 1
+    path: Assets/Scenes/MicroGames/HuntTheDuck/HuntTheDuck.unity
+    guid: 69b0eb4cb9a37ca4b849d10100f7e6d8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: ecf334fc48144724c87ee33cc2dca7af, type: 2}

@@ -670,7 +670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &706792744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1478,7 +1478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   microGameDefinition:
-  - {fileID: 11400000, guid: d84f884ed6dfe7044a1edbca08d9b705, type: 2}
+  - {fileID: 11400000, guid: 2ffa6c62e40114146bcbd20d214c45c5, type: 2}
 --- !u!82 &1102052183
 AudioSource:
   m_ObjectHideFlags: 0

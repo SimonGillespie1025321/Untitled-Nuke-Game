@@ -55,7 +55,7 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Quit"",
+                    ""name"": ""QuitGame"",
                     ""type"": ""Button"",
                     ""id"": ""4b51d923-3ac0-4db6-a1fd-42a9bc280087"",
                     ""expectedControlType"": ""Button"",
@@ -90,11 +90,11 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a55c0934-fddc-43ba-83e6-2898caf5960d"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": ""Tap"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Quit"",
+                    ""action"": ""QuitGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -119,7 +119,7 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
         m_Player_Tap = m_Player.FindAction("Tap", throwIfNotFound: true);
         m_Player_TapHold = m_Player.FindAction("TapHold", throwIfNotFound: true);
         m_Player_Mash = m_Player.FindAction("Mash", throwIfNotFound: true);
-        m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
+        m_Player_QuitGame = m_Player.FindAction("QuitGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,7 +182,7 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Tap;
     private readonly InputAction m_Player_TapHold;
     private readonly InputAction m_Player_Mash;
-    private readonly InputAction m_Player_Quit;
+    private readonly InputAction m_Player_QuitGame;
     public struct PlayerActions
     {
         private @NukeInputActions m_Wrapper;
@@ -190,7 +190,7 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
         public InputAction @Tap => m_Wrapper.m_Player_Tap;
         public InputAction @TapHold => m_Wrapper.m_Player_TapHold;
         public InputAction @Mash => m_Wrapper.m_Player_Mash;
-        public InputAction @Quit => m_Wrapper.m_Player_Quit;
+        public InputAction @QuitGame => m_Wrapper.m_Player_QuitGame;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -209,9 +209,9 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
                 @Mash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMash;
                 @Mash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMash;
                 @Mash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMash;
-                @Quit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
-                @Quit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
-                @Quit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                @QuitGame.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuitGame;
+                @QuitGame.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuitGame;
+                @QuitGame.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuitGame;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -225,9 +225,9 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
                 @Mash.started += instance.OnMash;
                 @Mash.performed += instance.OnMash;
                 @Mash.canceled += instance.OnMash;
-                @Quit.started += instance.OnQuit;
-                @Quit.performed += instance.OnQuit;
-                @Quit.canceled += instance.OnQuit;
+                @QuitGame.started += instance.OnQuitGame;
+                @QuitGame.performed += instance.OnQuitGame;
+                @QuitGame.canceled += instance.OnQuitGame;
             }
         }
     }
@@ -237,6 +237,6 @@ public partial class @NukeInputActions : IInputActionCollection2, IDisposable
         void OnTap(InputAction.CallbackContext context);
         void OnTapHold(InputAction.CallbackContext context);
         void OnMash(InputAction.CallbackContext context);
-        void OnQuit(InputAction.CallbackContext context);
+        void OnQuitGame(InputAction.CallbackContext context);
     }
 }

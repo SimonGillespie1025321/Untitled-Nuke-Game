@@ -32,6 +32,11 @@ public class ParachuteJump : MicroGame
     {
         Initialise();
         
+        originalX = target.transform.position.x;
+        originalScale = target.transform.localScale;
+        setTarget();
+
+
 
     }
 
@@ -49,7 +54,20 @@ public class ParachuteJump : MicroGame
         setTarget();
     }
 
+    public void setTarget()
+    {
+        Debug.Log(originalX.ToString());
+        float newX = Random.Range(0, 25);
+        float newScaleX = Random.Range(0.6f, 1f);
+        Vector3 newScale = new Vector3(newScaleX,originalScale.y, originalScale.z);
 
+
+        newX = newX + originalX;
+        Debug.Log(newX.ToString());
+        Vector3 newTargetPosition = new Vector3(newX, target.transform.position.y, target.transform.position.z);
+        target.transform.position = newTargetPosition;
+        target.transform.localScale = newScale;
+    }
 
 
 

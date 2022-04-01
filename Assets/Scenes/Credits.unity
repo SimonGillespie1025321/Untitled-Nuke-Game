@@ -533,7 +533,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\nSpecial Mention\n\n\tJake Malhoney\n\n\tDan Mcintosh"
+  m_text: "\nSpecial Mention\n\n\tJake Mahoney\n\n\tDan Mcintosh"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d180e2d056133f1438276758af7589a1, type: 2}
   m_sharedMaterial: {fileID: -1136870630551349264, guid: d180e2d056133f1438276758af7589a1, type: 2}
@@ -1052,7 +1052,7 @@ MonoBehaviour:
     Harry  Kalogirou
 
 
-    Zion Waller
+    Zion James
 
 
     Liam McMinn

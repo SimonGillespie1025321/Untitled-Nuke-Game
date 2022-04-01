@@ -30,11 +30,12 @@ public  class PlayerController : Singleton<PlayerController>
 
         nukeInputActions.Player.Tap.performed += EventManager.Instance.KeyTap;
         nukeInputActions.Player.Tap.Enable();
+        //nukeInputActions.Player.QuitGame.Enabled();
         /*nukeInputActions.Player.TapHold.performed += EventManager.Instance.KeyHold;
         nukeInputActions.Player.TapHold.canceled += EventManager.Instance.KeyHoldRelease;
         nukeInputActions.Player.TapHold.Enable();
         nukeInputActions.Player.Mash.performed += EventManager.Instance.KeyMash;
-        nukeInputActions.Player.Mash.Enable();*/
+        nukeInputActions.Player.Mash.Enable();
 
     }
 

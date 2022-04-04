@@ -5,15 +5,27 @@ using UnityEngine;
 public class BalloonPop : MicroGame
 {
     public bool hasPopped = false;
-    public float balloonPopSize = 10f;
+    public float elephantPopSize = 10f;
     [SerializeField] public GameObject balloon;
-
+    [SerializeField] public GameObject elephant;
 
     public void Start()
     {
         Initialise();
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public override void Mash()
     {
@@ -23,7 +35,7 @@ public class BalloonPop : MicroGame
             if (!hasPopped)
             {
                 InflateBalloon();
-                if (balloon.transform.localScale.x >= balloonPopSize)
+                if (elephant.transform.localScale.x >= elephantPopSize)
                 {
                     hasPopped = true;
                 }
@@ -37,11 +49,29 @@ public class BalloonPop : MicroGame
 
     }
 
+
+
     public void InflateBalloon()
     {
         Debug.Log("------------------------------Inflate Balloon-------------------------");
-        balloon.transform.localScale += Vector3.one;
+        balloon.transform.localScale -= Vector3.one;
+        elephant.transform.localScale += Vector3.one;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private void OnDestroy()

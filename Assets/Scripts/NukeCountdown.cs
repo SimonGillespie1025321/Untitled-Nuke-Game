@@ -74,7 +74,7 @@ public class NukeCountdown : Singleton<NukeCountdown>
 
                 string timerText = "00" + string.Format("{0:00}{1:00}", minutes, seconds);
                 char[] timerNumbers = timerText.ToCharArray();
-                Debug.Log("timerText = " + timerText);
+                //Debug.Log("timerText = " + timerText);
                 for (int index = 0; index < ledDisplay.Length; index++)
                 {
                     

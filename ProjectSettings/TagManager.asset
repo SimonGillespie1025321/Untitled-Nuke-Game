@@ -5,13 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Plane
-  - Duck
+  - Elephantfoottag
   - BoundsCheck
+  - Duck
+  - Earth
+  - Crosshair
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post Processing
   - Water
   - UI
   - 

@@ -13,7 +13,8 @@ public class NukeCountdown : Singleton<NukeCountdown>
     public static event NukeCountdownReachedZero nukeCountdownReachedZero;
     public float timeRemaining;
     public bool isTimerRunning = false;
-    [SerializeField] public TextMeshPro timerDisplay;
+    public GameObject[] ledDisplay;
+    public Material[] ledNumbers;
          
     // Start is called before the first frame update
     public void Initialise()
@@ -23,16 +24,25 @@ public class NukeCountdown : Singleton<NukeCountdown>
         EventManager.startNukeCountdown += startCountdown;
         EventManager.stopNukeCountdown += stopCountdown;
         timeRemaining = GameManager.Instance.gameConfig.timerInSeconds;
+        ResetCountdown();
     }
 
+
+    private void ResetCountdown()
+    {
+        for (int index = 0; index < ledDisplay.Length; index++)
+        {
+            ledDisplay[index].GetComponentInChildren<Renderer>().material = ledNumbers[0];
+        }
+    }
     private void startCountdown()
     {
         Debug.Log("TIMER STARTED");
         timeRemaining = GameManager.Instance.gameConfig.timerInSeconds;
-        timerDisplay.color = Color.green;
         isTimerRunning = true;
-        timerDisplay.color = Color.green;
-        //DisplayCountdown();
+        /*timerDisplay.color = Color.green;
+        timerDisplay.color = Color.green;*/
+        DisplayCountdown();
     }
 
     private void stopCountdown()
@@ -47,7 +57,7 @@ public class NukeCountdown : Singleton<NukeCountdown>
     void Update()
     {
         //Debug.Log("TIMER STARTED");
-        //if (isTimerRunning)
+        if (isTimerRunning)
             DisplayCountdown();
     }
 
@@ -61,10 +71,21 @@ public class NukeCountdown : Singleton<NukeCountdown>
 
                 float minutes = Mathf.FloorToInt(timeRemaining / 60);
                 float seconds = Mathf.FloorToInt(timeRemaining % 60);
-                timerDisplay.text = "00:" + string.Format("{0:00}:{1:00}", minutes, seconds);
+
+                string timerText = "00" + string.Format("{0:00}{1:00}", minutes, seconds);
+                char[] timerNumbers = timerText.ToCharArray();
+                //Debug.Log("timerText = " + timerText);
+                for (int index = 0; index < ledDisplay.Length; index++)
+                {
+                    
+                    int numberToDisplay;
+                    int.TryParse(timerNumbers[index].ToString(), out numberToDisplay);
+                    ledDisplay[index].GetComponentInChildren<Renderer>().material = ledNumbers[numberToDisplay];
+                }
+
                 if (seconds <= 5)
                 {
-                    timerDisplay.color = Color.red;
+                    //timerDisplay.color = Color.red;
 
                 }
                 timeRemaining -= Time.deltaTime;

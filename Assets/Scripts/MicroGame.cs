@@ -33,9 +33,9 @@ public abstract class MicroGame : MonoBehaviour
     virtual public void Initialise() 
     {
         
-        //EventManager.tap += Tap;
-        //EventManager.hold += Hold;
-        //EventManager.release += Release;
+        EventManager.tap += Tap;
+        EventManager.hold += Hold;
+        EventManager.release += Release;
         EventManager.mash += Mash;
         win += EventManager.Instance.Win;
         fail += EventManager.Instance.Fail;
